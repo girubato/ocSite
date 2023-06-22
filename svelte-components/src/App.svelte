@@ -1,39 +1,50 @@
 <script>
-  import BlueComponent from "./components/blueComponent.svelte";
-import RedComponent from "./components/redComponent.svelte";
-
-	export let name;
+  import CharacterThoughts from "./components/characterThoughts.svelte";
+import OcList from "./components/ocList.svelte";
 
 	
+	
+	
 
-	let leftCharacter ;
+	let leftCharacter;
 	let rightCharacter;
 
+	
+	let duplicate;
+
+$: if(leftCharacter === rightCharacter) 
+		duplicate = 1;
+	else
+		duplicate = 0;
 </script>
 
 <main>
 	<div class="container">
 		<div class="Left-Character-Selector">
-			Left Selected
+			<OcList bind:selected={leftCharacter} />
 		</div>
 
 		<div class="Character-Portrait-Container">
 		<div class="Left-Character-Portrait">
-			Left Character Portrait
+			
+			{leftCharacter}
 			<div class="Left-Character-Thoughts">
-				Left Character Thoughts
+				<CharacterThoughts selectedCharacter={leftCharacter} leftOrRight="left"/>
 			</div>
 		</div>
 
 		<div class="Right-Character-Portrait">
-			Right Character Portrait
+			{rightCharacter}
+			{#if duplicate}
+				Is a duplicate
+			{/if}
 				<div class="Right-Character-Thoughts">
-					Right Character Thoughts
+					<CharacterThoughts selectedCharacter={rightCharacter} leftOrRight="right"/>
 				</div>
 		</div>
 	</div>
 		<div class="Right-Character-Selector">
-			Right Selected
+			<OcList bind:selected={rightCharacter} />
 		</div>
 	</div>
 </main>
@@ -61,7 +72,7 @@ import RedComponent from "./components/redComponent.svelte";
 
 	.container{
 		display:grid;
-		grid-template-columns: repeat(4, 25%);
+		grid-template-columns: repeat(5, 20%);
 	}
 
 	.Left-Character-Selector{
@@ -79,14 +90,14 @@ import RedComponent from "./components/redComponent.svelte";
 	}
 
 	.Character-Portrait-Container{
-		grid-column: 2/4;
+		grid-column: 2/5;
 		display:grid;
 		grid-template-columns: repeat(5, 20% [col-start]);
 	}
 
 
 	.Right-Character-Selector{
-		grid-column: 4;
+		grid-column: 5;
 		background-color: rgba(00, 0, 200, 0.3);
 	}
 

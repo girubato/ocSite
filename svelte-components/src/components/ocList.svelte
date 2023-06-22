@@ -6,7 +6,7 @@
         { id: 3, name: 'Jacques'}
     ];
 
-    let selected;
+export let selected;
 
 </script>
 
